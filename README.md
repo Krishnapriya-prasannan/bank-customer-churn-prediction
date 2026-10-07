@@ -95,13 +95,13 @@ Evaluated on a Stratified 80/20 Train-Test split (8,000 train / 2,000 test):
 
 | Feature Name | Formula / Logic | Business Context |
 | :--- | :--- | :--- |
-| `Balance_Salary_Ratio` | $\text{Balance} / (\text{EstimatedSalary} + 1)$ | Financial exposure & uninvested liquidity ratio |
-| `Product_Density` | $\text{NumOfProducts} / (\text{Tenure} + 1)$ | Product adoption velocity over time |
-| `Engagement_Product_Interaction` | $\text{IsActiveMember} \times \text{NumOfProducts}$ | Active power users vs passive multi-product holders |
-| `Tenure_Age_Ratio` | $\text{Tenure} / (\text{Age} + 1)$ | Lifetime loyalty relative to age |
-| `Credit_Age_Ratio` | $\text{CreditScore} / (\text{Age} + 1)$ | Creditworthiness normalized by life stage |
-| `Is_Zero_Balance` | $\mathbb{I}(\text{Balance} == 0)$ | Flag for zero-balance shell accounts |
-| `High_Risk_Age_Group` | $\mathbb{I}(38 \le \text{Age} \le 60)$ | Isolates peak historical flight risk demographic |
+| `Balance_Salary_Ratio` | Balance ÷ (EstimatedSalary + 1) | Financial exposure & uninvested liquidity ratio |
+| `Product_Density` | NumOfProducts ÷ (Tenure + 1) | Product adoption velocity over time |
+| `Engagement_Product_Interaction` | IsActiveMember × NumOfProducts | Active power users vs passive multi-product holders |
+| `Tenure_Age_Ratio` | Tenure ÷ (Age + 1) | Lifetime loyalty relative to age |
+| `Credit_Age_Ratio` | CreditScore ÷ (Age + 1) | Creditworthiness normalized by life stage |
+| `Is_Zero_Balance` | 1 if Balance = 0, else 0 | Flag for zero-balance shell accounts |
+| `High_Risk_Age_Group` | 1 if Age is between 38 and 60, else 0 | Isolates peak historical flight risk demographic |
 
 ---
 
