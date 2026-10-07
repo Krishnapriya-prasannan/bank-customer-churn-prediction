@@ -282,7 +282,6 @@ def render_risk_gauge(probability):
 # Modern Header Banner
 st.markdown("""
 <div class="header-banner">
-    <span class="status-badge">System Active • Engine v2.4</span>
     <div class="header-title">Customer Retention Portal</div>
     <div class="header-subtitle">Enterprise Risk Scoring, Batch Intelligence & Campaign ROI Platform</div>
 </div>
