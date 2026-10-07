@@ -7,83 +7,156 @@ import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
 
-# Enterprise Page Configuration
+# Set Modern Responsive Page Configuration
 st.set_page_config(
     page_title="Bank Customer Retention Portal",
+    page_icon="🏛️",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for Corporate UI/UX Aesthetics
+# Advanced SaaS Web Design & Responsive CSS Styling
 st.markdown("""
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+    
     :root {
-        --bg-main: #0b0f19;
-        --card-bg: #151c2c;
-        --card-border: #26324a;
+        --bg-main: #090d16;
+        --card-bg: #121824;
+        --card-border: #1e2638;
+        --card-hover-border: #00b0ff;
         --text-primary: #ffffff;
-        --text-secondary: #90a4ae;
-        --accent-blue: #00b0ff;
-        --accent-green: #00e676;
-        --accent-yellow: #ffb300;
-        --accent-red: #ff1744;
+        --text-secondary: #94a3b8;
+        --accent-blue: #0284c7;
+        --accent-blue-glow: rgba(2, 132, 199, 0.25);
+        --accent-green: #10b981;
+        --accent-yellow: #f59e0b;
+        --accent-red: #ef4444;
     }
     
     .stApp {
         background-color: var(--bg-main);
         color: var(--text-primary);
-        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     }
-    
-    .metric-card {
-        background: linear-gradient(135deg, rgba(21,28,44,0.95), rgba(30,41,64,0.85));
+
+    /* Header Banner Container */
+    .header-banner {
+        background: linear-gradient(135deg, #111827 0%, #1e293b 50%, #0f172a 100%);
         border: 1px solid var(--card-border);
-        border-radius: 8px;
-        padding: 20px;
+        border-radius: 16px;
+        padding: 28px 32px;
+        margin-bottom: 28px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+    .header-title {
+        font-size: 1.85rem;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        color: #ffffff;
+        margin: 0 0 6px 0;
+    }
+    .header-subtitle {
+        font-size: 0.95rem;
+        color: var(--text-secondary);
+        margin: 0;
+    }
+    .status-badge {
+        background-color: rgba(16, 185, 129, 0.15);
+        color: #10b981;
+        border: 1px solid rgba(16, 185, 129, 0.3);
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        display: inline-block;
+        float: right;
+    }
+
+    /* Enterprise Metric Card Design */
+    .metric-card {
+        background: linear-gradient(145deg, rgba(18, 24, 36, 0.95), rgba(26, 34, 50, 0.85));
+        border: 1px solid var(--card-border);
+        border-radius: 14px;
+        padding: 22px 20px;
         text-align: center;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+        transition: all 0.25s ease-in-out;
+    }
+    .metric-card:hover {
+        transform: translateY(-4px);
+        border-color: var(--accent-blue);
+        box-shadow: 0 12px 28px rgba(2, 132, 199, 0.2);
     }
     .metric-val {
         font-size: 2.2rem;
-        font-weight: 700;
-        margin: 5px 0;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        margin: 6px 0;
     }
     .metric-label {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
+        font-weight: 600;
         color: var(--text-secondary);
         text-transform: uppercase;
-        letter-spacing: 0.8px;
+        letter-spacing: 1px;
     }
-    
+    .metric-subtext {
+        font-size: 0.82rem;
+        font-weight: 500;
+        margin-top: 4px;
+    }
+
+    /* Enterprise Risk Badges */
     .risk-badge-low {
-        background-color: rgba(0, 230, 118, 0.12);
-        color: #00e676;
-        border: 1px solid #00e676;
-        padding: 6px 14px;
-        border-radius: 4px;
+        background-color: rgba(16, 185, 129, 0.12);
+        color: #10b981;
+        border: 1px solid #10b981;
+        padding: 6px 16px;
+        border-radius: 6px;
         font-weight: 700;
-        font-size: 0.95rem;
+        font-size: 0.9rem;
+        letter-spacing: 0.5px;
         display: inline-block;
     }
     .risk-badge-medium {
-        background-color: rgba(255, 179, 0, 0.12);
-        color: #ffb300;
-        border: 1px solid #ffb300;
-        padding: 6px 14px;
-        border-radius: 4px;
+        background-color: rgba(245, 158, 11, 0.12);
+        color: #f59e0b;
+        border: 1px solid #f59e0b;
+        padding: 6px 16px;
+        border-radius: 6px;
         font-weight: 700;
-        font-size: 0.95rem;
+        font-size: 0.9rem;
+        letter-spacing: 0.5px;
         display: inline-block;
     }
     .risk-badge-high {
-        background-color: rgba(255, 23, 68, 0.12);
-        color: #ff1744;
-        border: 1px solid #ff1744;
-        padding: 6px 14px;
-        border-radius: 4px;
+        background-color: rgba(239, 68, 68, 0.12);
+        color: #ef4444;
+        border: 1px solid #ef4444;
+        padding: 6px 16px;
+        border-radius: 6px;
         font-weight: 700;
-        font-size: 0.95rem;
+        font-size: 0.9rem;
+        letter-spacing: 0.5px;
         display: inline-block;
+    }
+
+    /* Section Cards */
+    .section-card {
+        background: #121824;
+        border: 1px solid var(--card-border);
+        border-radius: 14px;
+        padding: 24px;
+        margin-bottom: 24px;
+    }
+    
+    /* Streamlit Button Tweaks */
+    .stButton>button {
+        border-radius: 8px;
+        font-weight: 600;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -95,7 +168,7 @@ DATA_PATH = "European_Bank.csv"
 def load_models():
     metadata_path = os.path.join(ARTIFACT_DIR, "metadata.json")
     if not os.path.exists(metadata_path):
-        st.error("System engine not ready. Run `python train_model.py` first.")
+        st.error("Model engine artifacts not found. Run `python train_model.py` first.")
         st.stop()
         
     best_model = joblib.load(os.path.join(ARTIFACT_DIR, "best_churn_model.pkl"))
@@ -108,17 +181,13 @@ def load_models():
 best_model, scaler, feature_names, df_raw = load_models()
 
 def preprocess_input_df(df):
-    """
-    Transforms raw customer dataframe into the format expected by prediction engine.
-    """
     df_clean = df.copy()
-    
     cols_to_drop = [c for c in ['CustomerId', 'Surname', 'Year', 'Exited'] if c in df_clean.columns]
     df_feat = df_clean.drop(columns=cols_to_drop)
     
     df_feat = df_feat.fillna(df_feat.median(numeric_only=True))
     
-    # Derived Feature Transformations
+    # Feature Transformations
     df_feat['Balance_Salary_Ratio'] = df_feat['Balance'] / (df_feat['EstimatedSalary'] + 1.0)
     df_feat['Product_Density'] = df_feat['NumOfProducts'] / (df_feat['Tenure'] + 1.0)
     df_feat['Engagement_Product_Interaction'] = df_feat['IsActiveMember'] * df_feat['NumOfProducts']
@@ -147,24 +216,57 @@ def preprocess_input_df(df):
 
 def get_action_recommendation(row):
     if row['IsActiveMember'] == 0:
-        return "Digital App Bonus (0.5% Deposit Bonus on App Login)"
+        return "Digital App Activation (0.5% Deposit Bonus on App Login)"
     elif row['NumOfProducts'] == 1:
         return "2nd Product Promotion (Free Credit Card / Savings Add-on)"
     elif row['NumOfProducts'] >= 3:
-        return "Relationship Manager Call (Consolidate Accounts & Reduce Fees)"
+        return "Relationship Manager Outreach (Consolidate Accounts & Fee Discount)"
     elif row['Geography_Germany'] == 1:
-        return "Germany Regional VIP Loyalty Program"
+        return "Germany Regional Loyalty Tier Upgrade"
     elif row['High_Risk_Age_Group'] == 1:
-        return "Personalized Wealth & Mortgage Refinancing Consultation"
+        return "Personalized Wealth Management Consultation"
     elif row['Is_Zero_Balance'] == 1:
-        return "Direct Deposit Salary Bonus ($50 Welcome Deposit)"
+        return "Direct Deposit Salary Bonus ($50 Welcome Bonus)"
     else:
-        return "Standard Promotional Engagement"
+        return "Standard Preferred Member Engagement"
 
-# Corporate Sidebar Navigation
-st.sidebar.title("Bank Retention Portal")
-st.sidebar.markdown("Customer Retention & Risk Management Engine")
+def render_risk_gauge(probability):
+    val = round(probability * 100, 1)
+    fig = go.Figure(go.Indicator(
+        mode="gauge+number",
+        value=val,
+        number={'suffix': "%", 'font': {'size': 38, 'color': '#ffffff', 'family': 'Plus Jakarta Sans'}},
+        gauge={
+            'axis': {'range': [0, 100], 'tickwidth': 1, 'tickcolor': "#475569"},
+            'bar': {'color': "#0284c7", 'thickness': 0.25},
+            'bgcolor': "#0f172a",
+            'borderwidth': 1,
+            'bordercolor': "#1e293b",
+            'steps': [
+                {'range': [0, 30], 'color': 'rgba(16, 185, 129, 0.25)'},
+                {'range': [30, 60], 'color': 'rgba(245, 158, 11, 0.25)'},
+                {'range': [60, 100], 'color': 'rgba(239, 68, 68, 0.25)'}
+            ],
+        }
+    ))
+    fig.update_layout(
+        height=220,
+        margin=dict(l=20, r=20, t=20, b=20),
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)'
+    )
+    return fig
 
+# Modern Header Banner
+st.markdown("""
+<div class="header-banner">
+    <span class="status-badge">System Active • Engine v2.4</span>
+    <div class="header-title">Customer Retention Portal</div>
+    <div class="header-subtitle">Enterprise Risk Scoring, Batch Intelligence & Campaign ROI Platform</div>
+</div>
+""", unsafe_allow_html=True)
+
+# Navigation
 user_tool = st.sidebar.radio(
     "Select Portal Module",
     [
@@ -176,29 +278,29 @@ user_tool = st.sidebar.radio(
 )
 
 st.sidebar.markdown("---")
-st.sidebar.caption("Retail Banking Risk Governance")
+st.sidebar.caption("Retail Banking Retention System")
 
 # ==========================================
 # MODULE 1: BATCH RISK SCORING & EXPORT
 # ==========================================
 if user_tool == "Batch Risk Scoring & CSV Export":
-    st.title("Batch Customer Risk Scoring")
-    st.markdown("Upload a customer file (CSV) to compute risk scores, map retention strategies, and export actionable CSV lists for campaign management.")
+    st.markdown("### Batch Customer Risk Evaluation")
+    st.markdown("Upload your customer portfolio dataset to compute risk probabilities, assign retention strategies, and export campaign lists.")
     
-    col_up, col_sample = st.columns([3, 1])
-    with col_up:
-        uploaded_file = st.file_uploader("Select Customer Dataset (CSV Format)", type=["csv"])
-    with col_sample:
+    c_up, c_samp = st.columns([3, 1])
+    with c_up:
+        uploaded_file = st.file_uploader("Select Customer File (CSV Format)", type=["csv"])
+    with c_samp:
         sample_csv = df_raw.head(100).drop(columns=['Exited']).to_csv(index=False).encode('utf-8')
         st.write("")
         st.write("")
-        st.download_button("Download Sample CSV Template", data=sample_csv, file_name="sample_customers.csv", mime="text/csv")
+        st.download_button("Download CSV Template", data=sample_csv, file_name="sample_customers.csv", mime="text/csv")
         
     if uploaded_file is not None:
         df_user = pd.read_csv(uploaded_file)
-        st.success(f"Successfully loaded {len(df_user):,} customer records.")
+        st.success(f"Loaded {len(df_user):,} customer records.")
         
-        with st.spinner("Processing batch risk evaluation..."):
+        with st.spinner("Calculating portfolio risk metrics..."):
             df_feat = preprocess_input_df(df_user)
             probs = best_model.predict_proba(df_feat)[:, 1]
             
@@ -211,48 +313,48 @@ if user_tool == "Batch Risk Scoring & CSV Export":
             df_scored['Recommended_Strategy'] = df_feat.apply(get_action_recommendation, axis=1)
             
         st.markdown("---")
-        st.subheader("Portfolio Risk Distribution")
         
-        m1, m2, m3, m4 = st.columns(4)
         total = len(df_scored)
         high = (df_scored['Risk_Level'] == 'High Risk').sum()
         med = (df_scored['Risk_Level'] == 'Medium Risk').sum()
         low = (df_scored['Risk_Level'] == 'Low Risk').sum()
         
+        m1, m2, m3, m4 = st.columns(4)
         with m1:
             st.markdown(f"""
             <div class="metric-card">
-                <div class="metric-label">Total Customers</div>
-                <div class="metric-val" style="color: #00b0ff;">{total:,}</div>
+                <div class="metric-label">Total Portfolio</div>
+                <div class="metric-val" style="color: #0284c7;">{total:,}</div>
+                <div class="metric-subtext" style="color: #94a3b8;">Scored Customers</div>
             </div>
             """, unsafe_allow_html=True)
         with m2:
             st.markdown(f"""
             <div class="metric-card">
                 <div class="metric-label">High Risk (>60%)</div>
-                <div class="metric-val" style="color: #ff1744;">{high:,}</div>
-                <div style="color: #ff1744;">{high/total*100:.1f}% of portfolio</div>
+                <div class="metric-val" style="color: #ef4444;">{high:,}</div>
+                <div class="metric-subtext" style="color: #ef4444;">{high/total*100:.1f}% of total</div>
             </div>
             """, unsafe_allow_html=True)
         with m3:
             st.markdown(f"""
             <div class="metric-card">
                 <div class="metric-label">Medium Risk (30-60%)</div>
-                <div class="metric-val" style="color: #ffb300;">{med:,}</div>
-                <div style="color: #ffb300;">{med/total*100:.1f}% of portfolio</div>
+                <div class="metric-val" style="color: #f59e0b;">{med:,}</div>
+                <div class="metric-subtext" style="color: #f59e0b;">{med/total*100:.1f}% of total</div>
             </div>
             """, unsafe_allow_html=True)
         with m4:
             st.markdown(f"""
             <div class="metric-card">
                 <div class="metric-label">Low Risk (<30%)</div>
-                <div class="metric-val" style="color: #00e676;">{low:,}</div>
-                <div style="color: #00e676;">{low/total*100:.1f}% of portfolio</div>
+                <div class="metric-val" style="color: #10b981;">{low:,}</div>
+                <div class="metric-subtext" style="color: #10b981;">{low/total*100:.1f}% of total</div>
             </div>
             """, unsafe_allow_html=True)
             
         st.markdown("---")
-        st.subheader("Filter & Export Scored Customer List")
+        st.markdown("### Scored Portfolio & Filter Options")
         
         selected_tiers = st.multiselect(
             "Filter Table by Risk Tier:",
@@ -263,26 +365,24 @@ if user_tool == "Batch Risk Scoring & CSV Export":
         display_df = df_scored[df_scored['Risk_Level'].isin(selected_tiers)]
         st.dataframe(display_df, use_container_width=True)
         
-        # CSV Export
         export_csv = display_df.to_csv(index=False).encode('utf-8')
         st.download_button(
             "Export Scored Customer Action Plan (CSV)",
             data=export_csv,
-            file_name="retention_action_plan.csv",
+            file_name="scored_retention_action_plan.csv",
             mime="text/csv"
         )
     else:
-        st.info("Select a customer CSV file above or download the sample template to evaluate batch risk.")
+        st.info("Upload a customer CSV dataset above or download the sample template to evaluate batch risk.")
 
 # ==========================================
 # MODULE 2: INDIVIDUAL RISK EVALUATION
 # ==========================================
 elif user_tool == "Individual Risk Evaluation":
-    st.title("Individual Risk Evaluation")
-    st.markdown("Specify customer parameters to compute the risk score and view targeted retention strategies.")
+    st.markdown("### Individual Risk Evaluation")
+    st.markdown("Input customer attributes to calculate their exact churn probability and view targeted retention actions.")
     
     with st.form("single_cust_form"):
-        st.subheader("Customer Parameters")
         c1, c2, c3 = st.columns(3)
         with c1:
             credit_score = st.slider("Credit Score", 300, 850, 640)
@@ -290,9 +390,9 @@ elif user_tool == "Individual Risk Evaluation":
             gender = st.selectbox("Gender", ["Female", "Male"])
             age = st.slider("Age", 18, 90, 44)
         with c2:
-            tenure = st.slider("Tenure (Years with Bank)", 0, 10, 3)
+            tenure = st.slider("Tenure (Years)", 0, 10, 3)
             balance = st.number_input("Account Balance (€)", min_value=0.0, max_value=300000.0, value=85000.0, step=5000.0)
-            salary = st.number_input("Estimated Annual Salary (€)", min_value=0.0, max_value=250000.0, value=90000.0, step=5000.0)
+            salary = st.number_input("Estimated Salary (€)", min_value=0.0, max_value=250000.0, value=90000.0, step=5000.0)
         with c3:
             num_products = st.selectbox("Number of Products", [1, 2, 3, 4], index=0)
             has_card = st.selectbox("Has Credit Card", [1, 0], format_func=lambda x: "Yes" if x==1 else "No")
@@ -314,28 +414,26 @@ elif user_tool == "Individual Risk Evaluation":
     st.markdown("---")
     r1, r2 = st.columns([1, 2])
     with r1:
-        color = "#ff1744" if prob > 0.6 else ("#ffb300" if prob >= 0.3 else "#00e676")
+        st.plotly_chart(render_risk_gauge(prob), use_container_width=True)
         tier = "High Risk" if prob > 0.6 else ("Medium Risk" if prob >= 0.3 else "Low Risk")
         badge = "risk-badge-high" if prob > 0.6 else ("risk-badge-medium" if prob >= 0.3 else "risk-badge-low")
         st.markdown(f"""
-        <div class="metric-card" style="padding: 30px;">
-            <div class="metric-label">Calculated Risk Score</div>
-            <div class="metric-val" style="font-size: 3.4rem; color: {color};">{prob*100:.1f}%</div>
-            <div class="{badge}">{tier}</div>
+        <div style="text-align: center;">
+            <span class="{badge}">{tier}</span>
         </div>
         """, unsafe_allow_html=True)
         
     with r2:
         action = get_action_recommendation(df_feat.iloc[0])
-        st.markdown("### Recommended Retention Strategy")
-        st.info(f"**Action**: {action}")
+        st.markdown("#### Recommended Retention Strategy")
+        st.info(f"**Strategy**: {action}")
         
-        st.markdown("#### Primary Risk Factors:")
+        st.markdown("#### Risk Factor Breakdown:")
         recs = []
         if is_active == 0:
             recs.append("- **Member Inactivity**: Customer exhibits low digital/branch engagement.")
         if num_products == 1:
-            recs.append("- **Single Product Ownership**: Vulnerable to competitor conversion offers.")
+            recs.append("- **Single Product Ownership**: Vulnerable to competitor switching offers.")
         elif num_products >= 3:
             recs.append("- **Product Overcrowding**: Customer holds 3-4 products (associated with high fee dissatisfaction).")
         if geography == "Germany":
@@ -355,10 +453,10 @@ elif user_tool == "Individual Risk Evaluation":
 # MODULE 3: SCENARIO SIMULATOR
 # ==========================================
 elif user_tool == "Scenario Simulator":
-    st.title("Scenario Simulator")
-    st.markdown("Evaluate how specific promotional offers or activity activation impact customer risk scores in real time.")
+    st.markdown("### Scenario Simulator")
+    st.markdown("Simulate retention interventions to evaluate their impact on customer risk scores in real time.")
     
-    st.subheader("1. Baseline Profile")
+    st.markdown("#### 1. Baseline Customer Profile")
     sc1, sc2, sc3 = st.columns(3)
     with sc1:
         sim_age = st.slider("Age", 18, 85, 46, key="wf_age")
@@ -384,7 +482,7 @@ elif user_tool == "Scenario Simulator":
     base_prob = best_model.predict_proba(df_base)[0][1]
     
     st.markdown("---")
-    st.subheader("2. Simulated Interventions")
+    st.markdown("#### 2. Simulated Retention Offer")
     ic1, ic2 = st.columns(2)
     with ic1:
         new_active = st.radio(
@@ -403,28 +501,29 @@ elif user_tool == "Scenario Simulator":
     mod_prob = best_model.predict_proba(df_mod)[0][1]
     delta = (mod_prob - base_prob) * 100
     
-    st.markdown("### Simulation Impact Analysis")
+    st.markdown("---")
+    st.markdown("#### Simulation Results Comparison")
     res1, res2, res3 = st.columns(3)
     with res1:
         st.markdown(f"""
         <div class="metric-card">
             <div class="metric-label">Baseline Churn Risk</div>
-            <div class="metric-val" style="color: {'#ff1744' if base_prob > 0.5 else '#ffb300'};">{base_prob*100:.1f}%</div>
+            <div class="metric-val" style="color: {'#ef4444' if base_prob > 0.5 else '#f59e0b'};">{base_prob*100:.1f}%</div>
         </div>
         """, unsafe_allow_html=True)
     with res2:
         st.markdown(f"""
         <div class="metric-card">
             <div class="metric-label">Post-Intervention Risk</div>
-            <div class="metric-val" style="color: {'#00e676' if mod_prob < 0.3 else '#ffb300'};">{mod_prob*100:.1f}%</div>
+            <div class="metric-val" style="color: {'#10b981' if mod_prob < 0.3 else '#f59e0b'};">{mod_prob*100:.1f}%</div>
         </div>
         """, unsafe_allow_html=True)
     with res3:
         st.markdown(f"""
         <div class="metric-card">
             <div class="metric-label">Risk Reduction Delta</div>
-            <div class="metric-val" style="color: {'#00e676' if delta < 0 else '#ff1744'};">{delta:+.1f}%</div>
-            <div>{"Risk Reduced" if delta < 0 else "Risk Increased"}</div>
+            <div class="metric-val" style="color: {'#10b981' if delta < 0 else '#ef4444'};">{delta:+.1f}%</div>
+            <div class="metric-subtext" style="color: {'#10b981' if delta < 0 else '#ef4444'};">{"Risk Reduced" if delta < 0 else "Risk Increased"}</div>
         </div>
         """, unsafe_allow_html=True)
 
@@ -432,8 +531,8 @@ elif user_tool == "Scenario Simulator":
 # MODULE 4: FINANCIAL ROI CALCULATOR
 # ==========================================
 elif user_tool == "Financial ROI Calculator":
-    st.title("Financial ROI Calculator")
-    st.markdown("Quantify financial returns and saved revenue from targeted retention campaigns.")
+    st.markdown("### Campaign Financial ROI Calculator")
+    st.markdown("Calculate financial returns and net revenue saved from targeted retention campaigns.")
     
     c1, c2, c3 = st.columns(3)
     with c1:
@@ -466,27 +565,31 @@ elif user_tool == "Financial ROI Calculator":
         st.markdown(f"""
         <div class="metric-card">
             <div class="metric-label">Total Revenue at Risk</div>
-            <div class="metric-val" style="color: #ff1744;">€{revenue_at_risk:,.0f}</div>
+            <div class="metric-val" style="color: #ef4444;">€{revenue_at_risk:,.0f}</div>
+            <div class="metric-subtext" style="color: #94a3b8;">Unmitigated Portfolio Loss</div>
         </div>
         """, unsafe_allow_html=True)
     with m2:
         st.markdown(f"""
         <div class="metric-card">
             <div class="metric-label">Targeted At-Risk Customers</div>
-            <div class="metric-val" style="color: #00b0ff;">{predicted_high_risk:,}</div>
+            <div class="metric-val" style="color: #0284c7;">{predicted_high_risk:,}</div>
+            <div class="metric-subtext" style="color: #94a3b8;">High Risk Filter</div>
         </div>
         """, unsafe_allow_html=True)
     with m3:
         st.markdown(f"""
         <div class="metric-card">
-            <div class="metric-label">Net Saved Revenue (Post-Costs)</div>
-            <div class="metric-val" style="color: #00e676;">€{net_profit:,.0f}</div>
+            <div class="metric-label">Net Revenue Saved</div>
+            <div class="metric-val" style="color: #10b981;">€{net_profit:,.0f}</div>
+            <div class="metric-subtext" style="color: #10b981;">Net Profit After Costs</div>
         </div>
         """, unsafe_allow_html=True)
     with m4:
         st.markdown(f"""
         <div class="metric-card">
             <div class="metric-label">Campaign ROI</div>
-            <div class="metric-val" style="color: {'#00e676' if roi > 0 else '#ff1744'};">{roi:+.1f}%</div>
+            <div class="metric-val" style="color: {'#10b981' if roi > 0 else '#ef4444'};">{roi:+.1f}%</div>
+            <div class="metric-subtext" style="color: {'#10b981' if roi > 0 else '#ef4444'};">Return on Campaign Spend</div>
         </div>
         """, unsafe_allow_html=True)
