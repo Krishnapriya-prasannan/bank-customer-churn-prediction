@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🏦 Bank Customer Churn Intelligence Platform
+# Bank Customer Churn Intelligence Platform
 ### *Predictive Modeling, Risk Scoring & Explainable AI for Retail Banking*
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Streamlit%20Cloud-FF4B4B.svg?logo=streamlit&logoColor=white)](https://bank-customer-churn-prediction-n5qoq7vmewtvyez2wczmmx.streamlit.app/)
@@ -14,61 +14,61 @@
 
 *An end-to-end Machine Learning ecosystem assigning real-time churn probability scores to retail bank customers, uncovering key flight drivers via SHAP, and offering an interactive Streamlit analytics suite.*
 
-🚀 **[Try the Live App →](https://bank-customer-churn-prediction-n5qoq7vmewtvyez2wczmmx.streamlit.app/)**
+**[Try the Live App →](https://bank-customer-churn-prediction-n5qoq7vmewtvyez2wczmmx.streamlit.app/)**
 
-[Features](#-key-features) • [Quick Start](#-quick-start) • [Model Benchmarks](#-model-performance-benchmarks) • [Streamlit App](#-streamlit-web-application) • [Architecture](#-project-architecture) • [Research Paper](research_paper.md)
+[Features](#key-features) • [Quick Start](#quick-start-guide) • [Model Benchmarks](#model-performance-benchmarks) • [Streamlit App](#streamlit-web-application) • [Architecture](#project-architecture) • [Research Paper](research_paper.md)
 
 </div>
 
 ---
 
-## 📖 Table of Contents
-- [📌 About The Project](#-about-the-project)
-- [✨ Key Features](#-key-features)
-- [🏗️ Project Architecture](#-project-architecture)
-- [⚡ Model Performance Benchmarks](#-model-performance-benchmarks)
-- [⚙️ Feature Engineering Matrix](#️-feature-engineering-matrix)
-- [🖥️ Streamlit Web Application](#️-streamlit-web-application)
-- [🚀 Quick Start Guide](#-quick-start-guide)
-- [📈 Real-World Banking Insights](#-real-world-banking-insights)
-- [⚖️ Regulatory Compliance & Ethics](#️-regulatory-compliance--ethics)
-- [🤝 Contributing](#-contributing)
-- [📝 License](#-license)
+## Table of Contents
+- [About The Project](#about-the-project)
+- [Key Features](#key-features)
+- [Project Architecture](#project-architecture)
+- [Model Performance Benchmarks](#model-performance-benchmarks)
+- [Feature Engineering Matrix](#feature-engineering-matrix)
+- [Streamlit Web Application](#streamlit-web-application)
+- [Quick Start Guide](#quick-start-guide)
+- [Real-World Banking Insights](#real-world-banking-insights)
+- [Regulatory Compliance & Ethics](#regulatory-compliance--ethics)
+- [Contributing](#contributing)
+- [License](#license)
 
 ---
 
-## 📌 About The Project
+## About The Project
 
-In retail banking, acquiring a new customer costs **5 to 7 times more** than retaining an existing account holder. Traditional churn analysis is **retrospective**—analyzing exit surveys after the relationship is severed. 
+In retail banking, acquiring a new customer costs **5 to 7 times more** than retaining an existing account holder. Traditional churn analysis is **retrospective**—analyzing exit surveys after the relationship is severed.
 
 This project introduces a **proactive predictive churn engine** deployed on 10,000 European bank customer accounts (`European_Bank.csv`). By deploying machine learning models coupled with **SHAP (SHapley Additive exPlanations)**, bank relationship managers can identify at-risk customers early, calculate quantitative risk scores (0–100%), and simulate retention offers in real time.
 
 ---
 
-## ✨ Key Features
+## Key Features
 
-- 🧹 **Automated Preprocessing**: Handles missing values, strips non-informative identifiers, and encodes categorical attributes (`Geography`, `Gender`).
-- 🔬 **7 Domain-Derived Features**: Features built specifically for banking behavior (e.g., Balance-to-Salary Ratio, Product Density, Active Member Interaction).
-- 🤖 **Multi-Model Benchmarking**: Trains and compares 5 algorithms: **Logistic Regression**, **Decision Trees**, **Random Forests**, **Gradient Boosting**, and **XGBoost**.
-- 🔍 **Explainable AI (SHAP)**: Provides audit-compliant mathematical explanations for every prediction, adhering to European Central Bank (ECB) AI governance guidelines.
-- 🎛️ **Interactive Streamlit Suite**: 5 modules including a **Live Churn Risk Calculator** and a **What-If Scenario Simulator**.
+- **Automated Preprocessing**: Handles missing values, strips non-informative identifiers, and encodes categorical attributes (`Geography`, `Gender`).
+- **7 Domain-Derived Features**: Features built specifically for banking behavior (e.g., Balance-to-Salary Ratio, Product Density, Active Member Interaction).
+- **Multi-Model Benchmarking**: Trains and compares 5 algorithms: **Logistic Regression**, **Decision Trees**, **Random Forests**, **Gradient Boosting**, and **XGBoost**.
+- **Explainable AI (SHAP)**: Provides audit-compliant mathematical explanations for every prediction, adhering to European Central Bank (ECB) AI governance guidelines.
+- **Interactive Streamlit Suite**: 4 modules including a **Live Churn Risk Calculator** and a **What-If Scenario Simulator**.
 
 ---
 
-## 🏗️ Project Architecture
+## Project Architecture
 
 ```mermaid
 flowchart TD
     A["Raw Dataset<br>European_Bank.csv"] --> B["Data Preprocessing<br>& Cleaning"]
     B --> C["Domain Feature<br>Engineering"]
     C --> D["Stratified 80/20<br>Train-Test Split"]
-    
+
     D --> E1["Logistic Regression"]
     D --> E2["Decision Tree"]
     D --> E3["Random Forest"]
     D --> E4["Gradient Boosting"]
     D --> E5["XGBoost Classifier"]
-    
+
     E1 & E2 & E3 & E4 & E5 --> F["Model Evaluation &<br>Benchmark Comparison"]
     F --> G["SHAP Explainability<br>& Feature Attribution"]
     G --> H["Model Artifact Export<br>model_artifacts/"]
@@ -77,7 +77,7 @@ flowchart TD
 
 ---
 
-## ⚡ Model Performance Benchmarks
+## Model Performance Benchmarks
 
 Evaluated on a Stratified 80/20 Train-Test split (8,000 train / 2,000 test):
 
@@ -91,7 +91,7 @@ Evaluated on a Stratified 80/20 Train-Test split (8,000 train / 2,000 test):
 
 ---
 
-## ⚙️ Feature Engineering Matrix
+## Feature Engineering Matrix
 
 | Feature Name | Formula / Logic | Business Context |
 | :--- | :--- | :--- |
@@ -105,22 +105,21 @@ Evaluated on a Stratified 80/20 Train-Test split (8,000 train / 2,000 test):
 
 ---
 
-## 🖥️ Streamlit Web Application
+## Streamlit Web Application
 
-The interactive web dashboard ([`app.py`](app.py)) is organized into 5 core modules:
+The interactive web dashboard ([`app.py`](app.py)) is organized into 4 core modules:
 
 ```text
-🏦 Navigation Modules
- ├── 📊 Executive Overview          # Macro KPIs, demographic breakdowns & charts
- ├── 🧮 Churn Risk Calculator       # Real-time probability prediction & custom action plans
- ├── ⚡ Model Performance Benchmark # ROC-AUC curves, confusion matrices & metrics table
- ├── 🔍 SHAP & Feature Explainability # Gini importances & global SHAP impact plots
- └── 🧪 What-If Scenario Simulator  # Test retention offers & calculate risk reduction delta
+Navigation Modules
+ ├── Batch Risk Scoring & CSV Export     # Upload CSV, score all customers, download results
+ ├── Individual Risk Evaluation          # Real-time single customer risk scoring
+ ├── Scenario Simulator                  # Test retention offers & calculate risk reduction delta
+ └── Financial ROI Calculator            # Estimate campaign cost vs retention revenue
 ```
 
 ---
 
-## 🚀 Quick Start Guide
+## Quick Start Guide
 
 ### 1. Clone Repository & Navigate
 ```bash
@@ -134,7 +133,7 @@ python -m pip install -r requirements.txt
 ```
 *(or install directly: `python -m pip install pandas numpy scikit-learn xgboost shap streamlit plotly seaborn matplotlib joblib`)*
 
-### 3. Run Pipeline & Train Models
+### 3. Train Models
 ```bash
 python train_model.py
 ```
@@ -143,19 +142,19 @@ python train_model.py
 ```bash
 streamlit run app.py
 ```
-Open **`http://localhost:8501`** in your browser!
+Open **`http://localhost:8501`** in your browser.
 
 ---
 
-## 📈 Real-World Banking Insights
+## Real-World Banking Insights
 
-- 💡 **The Product Paradox**: Customers holding **2 bank products** exhibit the lowest churn rate (**7.6%**). Single-product holders churn at **27.7%**, while holding **3+ products** drives churn above **82.7%** due to product friction and fee dissatisfaction.
-- 💡 **The Active Member Shield**: Active digital/branch membership cuts churn propensity in half (**14.3%** active vs **26.9%** inactive).
-- 💡 **Geographic Risk Variance**: German accounts exhibit a **27.5% churn rate**, significantly higher than France (**16.15%**) and Spain (**16.67%**).
+- **The Product Paradox**: Customers holding **2 bank products** exhibit the lowest churn rate (**7.6%**). Single-product holders churn at **27.7%**, while holding **3+ products** drives churn above **82.7%** due to product friction and fee dissatisfaction.
+- **The Active Member Shield**: Active digital/branch membership cuts churn propensity in half (**14.3%** active vs **26.9%** inactive).
+- **Geographic Risk Variance**: German accounts exhibit a **27.5% churn rate**, significantly higher than France (**16.15%**) and Spain (**16.67%**).
 
 ---
 
-## ⚖️ Regulatory Compliance & Ethics
+## Regulatory Compliance & Ethics
 
 This platform incorporates **SHAP Feature Attribution** to comply with:
 - **European Central Bank (ECB) AI Governance**: Ensures AI risk scoring is audit-compliant and non-discriminatory.
@@ -163,7 +162,7 @@ This platform incorporates **SHAP Feature Attribution** to comply with:
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Follow these steps:
 1. Fork the Project (`git checkout -b feature/AmazingFeature`)
@@ -173,12 +172,12 @@ Contributions are welcome! Follow these steps:
 
 ---
 
-## 📝 License
+## License
 
 Distributed under the **MIT License**. See `LICENSE` for more information.
 
 <div align="center">
 
-**[⬆ Back to Top](#-bank-customer-churn-intelligence-platform)**
+**[Back to Top](#bank-customer-churn-intelligence-platform)**
 
 </div>
