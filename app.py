@@ -169,15 +169,35 @@ DATA_PATH = "European_Bank.csv"
 @st.cache_resource
 def load_models():
     metadata_path = os.path.join(ARTIFACT_DIR, "metadata.json")
+
+    # Try to load pre-built artifacts; if loading fails (e.g. Python version mismatch
+    # between the machine that trained and Streamlit Cloud), retrain automatically.
+    needs_train = False
     if not os.path.exists(metadata_path):
-        st.error("Model engine artifacts not found. Run `python train_model.py` first.")
-        st.stop()
-        
+        needs_train = True
+    else:
+        try:
+            _test_model = joblib.load(os.path.join(ARTIFACT_DIR, "best_churn_model.pkl"))
+            _test_scaler = joblib.load(os.path.join(ARTIFACT_DIR, "scaler.pkl"))
+            _test_features = joblib.load(os.path.join(ARTIFACT_DIR, "feature_names.pkl"))
+            import numpy as _np
+            _test_model.predict_proba(_test_scaler.transform(
+                _np.zeros((1, len(_test_features)))
+            ))
+            del _test_model, _test_scaler, _test_features, _np
+        except Exception:
+            needs_train = True
+
+    if needs_train:
+        with st.spinner("Initialising model engine — this takes about 60 seconds on first run…"):
+            import train_model as _tm
+            _tm.main()
+
     best_model = joblib.load(os.path.join(ARTIFACT_DIR, "best_churn_model.pkl"))
     scaler = joblib.load(os.path.join(ARTIFACT_DIR, "scaler.pkl"))
     feature_names = joblib.load(os.path.join(ARTIFACT_DIR, "feature_names.pkl"))
     df_raw = pd.read_csv(DATA_PATH)
-    
+
     return best_model, scaler, feature_names, df_raw
 
 best_model, scaler, feature_names, df_raw = load_models()
