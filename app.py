@@ -7,15 +7,14 @@ import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
 
-# Page Configuration for End-User Product
+# Enterprise Page Configuration
 st.set_page_config(
     page_title="Bank Customer Retention Portal",
-    page_icon="🏦",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for Professional User Interface
+# Custom CSS for Corporate UI/UX Aesthetics
 st.markdown("""
 <style>
     :root {
@@ -39,10 +38,10 @@ st.markdown("""
     .metric-card {
         background: linear-gradient(135deg, rgba(21,28,44,0.95), rgba(30,41,64,0.85));
         border: 1px solid var(--card-border);
-        border-radius: 12px;
+        border-radius: 8px;
         padding: 20px;
         text-align: center;
-        box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
     .metric-val {
         font-size: 2.2rem;
@@ -57,33 +56,33 @@ st.markdown("""
     }
     
     .risk-badge-low {
-        background-color: rgba(0, 230, 118, 0.15);
+        background-color: rgba(0, 230, 118, 0.12);
         color: #00e676;
         border: 1px solid #00e676;
         padding: 6px 14px;
-        border-radius: 20px;
+        border-radius: 4px;
         font-weight: 700;
-        font-size: 1rem;
+        font-size: 0.95rem;
         display: inline-block;
     }
     .risk-badge-medium {
-        background-color: rgba(255, 179, 0, 0.15);
+        background-color: rgba(255, 179, 0, 0.12);
         color: #ffb300;
         border: 1px solid #ffb300;
         padding: 6px 14px;
-        border-radius: 20px;
+        border-radius: 4px;
         font-weight: 700;
-        font-size: 1rem;
+        font-size: 0.95rem;
         display: inline-block;
     }
     .risk-badge-high {
-        background-color: rgba(255, 23, 68, 0.15);
+        background-color: rgba(255, 23, 68, 0.12);
         color: #ff1744;
         border: 1px solid #ff1744;
         padding: 6px 14px;
-        border-radius: 20px;
+        border-radius: 4px;
         font-weight: 700;
-        font-size: 1rem;
+        font-size: 0.95rem;
         display: inline-block;
     }
 </style>
@@ -162,44 +161,44 @@ def get_action_recommendation(row):
     else:
         return "Standard Promotional Engagement"
 
-# Sidebar Navigation for End Users
-st.sidebar.title("🏦 Bank Retention Portal")
-st.sidebar.markdown("Customer Retention & Risk Management Tool")
+# Corporate Sidebar Navigation
+st.sidebar.title("Bank Retention Portal")
+st.sidebar.markdown("Customer Retention & Risk Management Engine")
 
 user_tool = st.sidebar.radio(
-    "Select Action Tool",
+    "Select Portal Module",
     [
-        "📁 Upload Customer List & Export Action Plan",
-        "🧮 Check Single Customer Risk",
-        "🧪 What-If Scenario Simulator",
-        "💰 Retention Campaign ROI Calculator"
+        "Batch Risk Scoring & CSV Export",
+        "Individual Risk Evaluation",
+        "Scenario Simulator",
+        "Financial ROI Calculator"
     ]
 )
 
 st.sidebar.markdown("---")
-st.sidebar.caption("© Bank Customer Retention System")
+st.sidebar.caption("Retail Banking Risk Governance")
 
 # ==========================================
-# TOOL 1: BATCH UPLOAD & CRM EXPORT
+# MODULE 1: BATCH RISK SCORING & EXPORT
 # ==========================================
-if user_tool == "📁 Upload Customer List & Export Action Plan":
-    st.title("📁 Batch Customer Risk Scoring & Action Export")
-    st.markdown("Upload your customer list (CSV) to identify at-risk customers, get automated retention strategies, and export actionable CSV files for marketing.")
+if user_tool == "Batch Risk Scoring & CSV Export":
+    st.title("Batch Customer Risk Scoring")
+    st.markdown("Upload a customer file (CSV) to compute risk scores, map retention strategies, and export actionable CSV lists for campaign management.")
     
     col_up, col_sample = st.columns([3, 1])
     with col_up:
-        uploaded_file = st.file_uploader("Choose Customer CSV File", type=["csv"])
+        uploaded_file = st.file_uploader("Select Customer Dataset (CSV Format)", type=["csv"])
     with col_sample:
         sample_csv = df_raw.head(100).drop(columns=['Exited']).to_csv(index=False).encode('utf-8')
         st.write("")
         st.write("")
-        st.download_button("📥 Download Sample CSV", data=sample_csv, file_name="sample_customers.csv", mime="text/csv")
+        st.download_button("Download Sample CSV Template", data=sample_csv, file_name="sample_customers.csv", mime="text/csv")
         
     if uploaded_file is not None:
         df_user = pd.read_csv(uploaded_file)
-        st.success(f"Loaded {len(df_user):,} customer records.")
+        st.success(f"Successfully loaded {len(df_user):,} customer records.")
         
-        with st.spinner("Analyzing customer risk scores and assigning retention strategies..."):
+        with st.spinner("Processing batch risk evaluation..."):
             df_feat = preprocess_input_df(df_user)
             probs = best_model.predict_proba(df_feat)[:, 1]
             
@@ -207,18 +206,18 @@ if user_tool == "📁 Upload Customer List & Export Action Plan":
             df_scored['Risk_Score_%'] = np.round(probs * 100, 1)
             df_scored['Risk_Level'] = pd.cut(
                 probs, bins=[-0.01, 0.30, 0.60, 1.01],
-                labels=['Low Risk 🟢', 'Medium Risk 🟡', 'High Risk 🔴']
+                labels=['Low Risk', 'Medium Risk', 'High Risk']
             )
-            df_scored['Recommended_Action'] = df_feat.apply(get_action_recommendation, axis=1)
+            df_scored['Recommended_Strategy'] = df_feat.apply(get_action_recommendation, axis=1)
             
         st.markdown("---")
-        st.subheader("Summary of Customer At-Risk Portfolio")
+        st.subheader("Portfolio Risk Distribution")
         
         m1, m2, m3, m4 = st.columns(4)
         total = len(df_scored)
-        high = (df_scored['Risk_Level'] == 'High Risk 🔴').sum()
-        med = (df_scored['Risk_Level'] == 'Medium Risk 🟡').sum()
-        low = (df_scored['Risk_Level'] == 'Low Risk 🟢').sum()
+        high = (df_scored['Risk_Level'] == 'High Risk').sum()
+        med = (df_scored['Risk_Level'] == 'Medium Risk').sum()
+        low = (df_scored['Risk_Level'] == 'Low Risk').sum()
         
         with m1:
             st.markdown(f"""
@@ -232,7 +231,7 @@ if user_tool == "📁 Upload Customer List & Export Action Plan":
             <div class="metric-card">
                 <div class="metric-label">High Risk (>60%)</div>
                 <div class="metric-val" style="color: #ff1744;">{high:,}</div>
-                <div style="color: #ff1744;">{high/total*100:.1f}% of total</div>
+                <div style="color: #ff1744;">{high/total*100:.1f}% of portfolio</div>
             </div>
             """, unsafe_allow_html=True)
         with m3:
@@ -240,7 +239,7 @@ if user_tool == "📁 Upload Customer List & Export Action Plan":
             <div class="metric-card">
                 <div class="metric-label">Medium Risk (30-60%)</div>
                 <div class="metric-val" style="color: #ffb300;">{med:,}</div>
-                <div style="color: #ffb300;">{med/total*100:.1f}% of total</div>
+                <div style="color: #ffb300;">{med/total*100:.1f}% of portfolio</div>
             </div>
             """, unsafe_allow_html=True)
         with m4:
@@ -248,17 +247,17 @@ if user_tool == "📁 Upload Customer List & Export Action Plan":
             <div class="metric-card">
                 <div class="metric-label">Low Risk (<30%)</div>
                 <div class="metric-val" style="color: #00e676;">{low:,}</div>
-                <div style="color: #00e676;">{low/total*100:.1f}% of total</div>
+                <div style="color: #00e676;">{low/total*100:.1f}% of portfolio</div>
             </div>
             """, unsafe_allow_html=True)
             
         st.markdown("---")
-        st.subheader("Filter & Export Action Plan")
+        st.subheader("Filter & Export Scored Customer List")
         
         selected_tiers = st.multiselect(
-            "Filter Table by Risk Level:",
-            ['High Risk 🔴', 'Medium Risk 🟡', 'Low Risk 🟢'],
-            default=['High Risk 🔴', 'Medium Risk 🟡']
+            "Filter Table by Risk Tier:",
+            ['High Risk', 'Medium Risk', 'Low Risk'],
+            default=['High Risk', 'Medium Risk']
         )
         
         display_df = df_scored[df_scored['Risk_Level'].isin(selected_tiers)]
@@ -267,39 +266,39 @@ if user_tool == "📁 Upload Customer List & Export Action Plan":
         # CSV Export
         export_csv = display_df.to_csv(index=False).encode('utf-8')
         st.download_button(
-            "🚀 Export Action Plan CSV (For Campaign Outreach)",
+            "Export Scored Customer Action Plan (CSV)",
             data=export_csv,
             file_name="retention_action_plan.csv",
             mime="text/csv"
         )
     else:
-        st.info("👈 Upload your customer CSV file above or click **Download Sample CSV** to try out the tool!")
+        st.info("Select a customer CSV file above or download the sample template to evaluate batch risk.")
 
 # ==========================================
-# TOOL 2: SINGLE CUSTOMER RISK CHECKER
+# MODULE 2: INDIVIDUAL RISK EVALUATION
 # ==========================================
-elif user_tool == "🧮 Check Single Customer Risk":
-    st.title("🧮 Check Single Customer Risk & Action Plan")
-    st.markdown("Enter details for an individual customer to immediately check their risk level and view recommended retention offers.")
+elif user_tool == "Individual Risk Evaluation":
+    st.title("Individual Risk Evaluation")
+    st.markdown("Specify customer parameters to compute the risk score and view targeted retention strategies.")
     
     with st.form("single_cust_form"):
-        st.subheader("Customer Details")
+        st.subheader("Customer Parameters")
         c1, c2, c3 = st.columns(3)
         with c1:
             credit_score = st.slider("Credit Score", 300, 850, 640)
             geography = st.selectbox("Country", ["France", "Germany", "Spain"])
             gender = st.selectbox("Gender", ["Female", "Male"])
-            age = st.slider("Customer Age", 18, 90, 44)
+            age = st.slider("Age", 18, 90, 44)
         with c2:
-            tenure = st.slider("Years with Bank (Tenure)", 0, 10, 3)
+            tenure = st.slider("Tenure (Years with Bank)", 0, 10, 3)
             balance = st.number_input("Account Balance (€)", min_value=0.0, max_value=300000.0, value=85000.0, step=5000.0)
             salary = st.number_input("Estimated Annual Salary (€)", min_value=0.0, max_value=250000.0, value=90000.0, step=5000.0)
         with c3:
-            num_products = st.selectbox("Number of Bank Products", [1, 2, 3, 4], index=0)
-            has_card = st.selectbox("Has Credit Card?", [1, 0], format_func=lambda x: "Yes" if x==1 else "No")
-            is_active = st.selectbox("Is Active Member?", [1, 0], format_func=lambda x: "Active (1)" if x==1 else "Inactive (0)")
+            num_products = st.selectbox("Number of Products", [1, 2, 3, 4], index=0)
+            has_card = st.selectbox("Has Credit Card", [1, 0], format_func=lambda x: "Yes" if x==1 else "No")
+            is_active = st.selectbox("Member Activity Status", [1, 0], format_func=lambda x: "Active (1)" if x==1 else "Inactive (0)")
             
-        submit_btn = st.form_submit_button("⚡ Predict Churn Risk Score")
+        submit_btn = st.form_submit_button("Evaluate Risk Score")
         
     cust_inputs = {
         'CreditScore': credit_score, 'Geography': geography, 'Gender': gender,
@@ -316,11 +315,11 @@ elif user_tool == "🧮 Check Single Customer Risk":
     r1, r2 = st.columns([1, 2])
     with r1:
         color = "#ff1744" if prob > 0.6 else ("#ffb300" if prob >= 0.3 else "#00e676")
-        tier = "High Risk 🔴" if prob > 0.6 else ("Medium Risk 🟡" if prob >= 0.3 else "Low Risk 🟢")
+        tier = "High Risk" if prob > 0.6 else ("Medium Risk" if prob >= 0.3 else "Low Risk")
         badge = "risk-badge-high" if prob > 0.6 else ("risk-badge-medium" if prob >= 0.3 else "risk-badge-low")
         st.markdown(f"""
         <div class="metric-card" style="padding: 30px;">
-            <div class="metric-label">Predicted Risk Score</div>
+            <div class="metric-label">Calculated Risk Score</div>
             <div class="metric-val" style="font-size: 3.4rem; color: {color};">{prob*100:.1f}%</div>
             <div class="{badge}">{tier}</div>
         </div>
@@ -328,38 +327,38 @@ elif user_tool == "🧮 Check Single Customer Risk":
         
     with r2:
         action = get_action_recommendation(df_feat.iloc[0])
-        st.markdown("### 🎯 Recommended Retention Offer")
-        st.info(f"👉 **{action}**")
+        st.markdown("### Recommended Retention Strategy")
+        st.info(f"**Action**: {action}")
         
-        st.markdown("#### Top Risk Indicators for this Customer:")
+        st.markdown("#### Primary Risk Factors:")
         recs = []
         if is_active == 0:
-            recs.append("⚠️ **Member Inactivity**: Customer has low engagement with bank apps/services.")
+            recs.append("- **Member Inactivity**: Customer exhibits low digital/branch engagement.")
         if num_products == 1:
-            recs.append("⚠️ **Single Product Holder**: Higher risk of switching to another bank.")
+            recs.append("- **Single Product Ownership**: Vulnerable to competitor conversion offers.")
         elif num_products >= 3:
-            recs.append("🔴 **Product Overcrowding**: Customer has 3-4 products (high fee dissatisfaction risk).")
+            recs.append("- **Product Overcrowding**: Customer holds 3-4 products (associated with high fee dissatisfaction).")
         if geography == "Germany":
-            recs.append("🌐 **Germany Region**: Account holders in Germany have higher baseline churn rates.")
+            recs.append("- **Germany Demographic**: German accounts have higher baseline churn propensity.")
         if age >= 38 and age <= 60:
-            recs.append("👤 **Age Window**: Customer is in the 38-60 age group with higher flight risk.")
+            recs.append("- **Age Bracket**: Customer is within the 38-60 age window with elevated flight risk.")
         if balance == 0:
-            recs.append("💵 **Zero Balance**: Customer maintains no account balance.")
+            recs.append("- **Zero Balance**: Customer maintains no active account balance.")
             
         if recs:
             for r in recs:
                 st.markdown(r)
         else:
-            st.success("✅ Low risk profile. Customer is well-retained!")
+            st.success("Customer profile indicates strong retention probability.")
 
 # ==========================================
-# TOOL 3: WHAT-IF SCENARIO SIMULATOR
+# MODULE 3: SCENARIO SIMULATOR
 # ==========================================
-elif user_tool == "🧪 What-If Scenario Simulator":
-    st.title("🧪 Interactive What-If Scenario Simulator")
-    st.markdown("Test how offering a new product or activating a member reduces their churn risk in real time.")
+elif user_tool == "Scenario Simulator":
+    st.title("Scenario Simulator")
+    st.markdown("Evaluate how specific promotional offers or activity activation impact customer risk scores in real time.")
     
-    st.subheader("Step 1: Set Baseline Customer Profile")
+    st.subheader("1. Baseline Profile")
     sc1, sc2, sc3 = st.columns(3)
     with sc1:
         sim_age = st.slider("Age", 18, 85, 46, key="wf_age")
@@ -368,7 +367,7 @@ elif user_tool == "🧪 What-If Scenario Simulator":
     with sc2:
         sim_balance = st.number_input("Balance (€)", value=100000.0, step=5000.0, key="wf_balance")
         sim_credit = st.slider("Credit Score", 300, 850, 620, key="wf_credit")
-        sim_tenure = st.slider("Tenure", 0, 10, 4, key="wf_tenure")
+        sim_tenure = st.slider("Tenure (Years)", 0, 10, 4, key="wf_tenure")
     with sc3:
         sim_products = st.selectbox("Current Products", [1, 2, 3, 4], index=0, key="wf_prod")
         sim_active = st.selectbox("Current Activity", [0, 1], format_func=lambda x: "Inactive (0)" if x==0 else "Active (1)", key="wf_act")
@@ -385,16 +384,16 @@ elif user_tool == "🧪 What-If Scenario Simulator":
     base_prob = best_model.predict_proba(df_base)[0][1]
     
     st.markdown("---")
-    st.subheader("Step 2: Simulate Retention Offers")
+    st.subheader("2. Simulated Interventions")
     ic1, ic2 = st.columns(2)
     with ic1:
         new_active = st.radio(
-            "Simulate Activity Campaign:",
+            "Simulate Member Activity:",
             [sim_active, 1 if sim_active==0 else 0],
             format_func=lambda x: "Keep Current" if x==sim_active else ("Activate Member" if x==1 else "Deactivate Member")
         )
     with ic2:
-        new_products = st.selectbox("Simulate Product Addition/Removal:", [1, 2, 3, 4], index=sim_products-1)
+        new_products = st.selectbox("Simulate Product Count Adjustment:", [1, 2, 3, 4], index=sim_products-1)
         
     mod_dict = base_dict.copy()
     mod_dict['IsActiveMember'] = new_active
@@ -404,19 +403,19 @@ elif user_tool == "🧪 What-If Scenario Simulator":
     mod_prob = best_model.predict_proba(df_mod)[0][1]
     delta = (mod_prob - base_prob) * 100
     
-    st.markdown("### 🎯 Simulation Impact")
+    st.markdown("### Simulation Impact Analysis")
     res1, res2, res3 = st.columns(3)
     with res1:
         st.markdown(f"""
         <div class="metric-card">
-            <div class="metric-label">Original Churn Risk</div>
+            <div class="metric-label">Baseline Churn Risk</div>
             <div class="metric-val" style="color: {'#ff1744' if base_prob > 0.5 else '#ffb300'};">{base_prob*100:.1f}%</div>
         </div>
         """, unsafe_allow_html=True)
     with res2:
         st.markdown(f"""
         <div class="metric-card">
-            <div class="metric-label">New Risk (After Offer)</div>
+            <div class="metric-label">Post-Intervention Risk</div>
             <div class="metric-val" style="color: {'#00e676' if mod_prob < 0.3 else '#ffb300'};">{mod_prob*100:.1f}%</div>
         </div>
         """, unsafe_allow_html=True)
@@ -425,38 +424,36 @@ elif user_tool == "🧪 What-If Scenario Simulator":
         <div class="metric-card">
             <div class="metric-label">Risk Reduction Delta</div>
             <div class="metric-val" style="color: {'#00e676' if delta < 0 else '#ff1744'};">{delta:+.1f}%</div>
-            <div>{"🎉 Risk Reduced" if delta < 0 else "⚠️ Risk Increased"}</div>
+            <div>{"Risk Reduced" if delta < 0 else "Risk Increased"}</div>
         </div>
         """, unsafe_allow_html=True)
 
 # ==========================================
-# TOOL 4: RETENTION CAMPAIGN ROI CALCULATOR
+# MODULE 4: FINANCIAL ROI CALCULATOR
 # ==========================================
-elif user_tool == "💰 Retention Campaign ROI Calculator":
-    st.title("💰 Retention Campaign Financial ROI Calculator")
-    st.markdown("Calculate how much money your bank saves by targeting high-risk customers with retention offers.")
+elif user_tool == "Financial ROI Calculator":
+    st.title("Financial ROI Calculator")
+    st.markdown("Quantify financial returns and saved revenue from targeted retention campaigns.")
     
     c1, c2, c3 = st.columns(3)
     with c1:
-        annual_val = st.number_input("Average Customer Annual Revenue (€)", value=1200.0, step=100.0)
+        annual_val = st.number_input("Average Annual Customer Revenue (€)", value=1200.0, step=100.0)
     with c2:
-        offer_cost = st.number_input("Campaign Offer Cost per Customer (€)", value=150.0, step=25.0)
+        offer_cost = st.number_input("Retention Offer Cost per Customer (€)", value=150.0, step=25.0)
     with c3:
-        conv_rate = st.slider("Campaign Offer Acceptance Rate (%)", 10, 80, 40) / 100.0
+        conv_rate = st.slider("Campaign Acceptance Rate (%)", 10, 80, 40) / 100.0
         
     st.markdown("---")
     
     total_customers = len(df_raw)
     total_churners = int(df_raw['Exited'].sum())
     
-    # Evaluate at high risk threshold (>50% prob)
     df_all_feat = preprocess_input_df(df_raw.drop(columns=['Exited']))
     all_probs = best_model.predict_proba(df_all_feat)[:, 1]
     
     predicted_high_risk = (all_probs >= 0.5).sum()
     actual_churners_caught = ((all_probs >= 0.5) & (df_raw['Exited'] == 1)).sum()
     
-    # Financial Calculations
     revenue_at_risk = total_churners * annual_val
     campaign_cost = predicted_high_risk * offer_cost
     saved_customers = actual_churners_caught * conv_rate
@@ -482,7 +479,7 @@ elif user_tool == "💰 Retention Campaign ROI Calculator":
     with m3:
         st.markdown(f"""
         <div class="metric-card">
-            <div class="metric-label">Net Profit Saved (After Costs)</div>
+            <div class="metric-label">Net Saved Revenue (Post-Costs)</div>
             <div class="metric-val" style="color: #00e676;">€{net_profit:,.0f}</div>
         </div>
         """, unsafe_allow_html=True)
