@@ -3,6 +3,7 @@
 # 🏦 Bank Customer Churn Intelligence Platform
 ### *Predictive Modeling, Risk Scoring & Explainable AI for Retail Banking*
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Streamlit%20Cloud-FF4B4B.svg?logo=streamlit&logoColor=white)](https://bank-customer-churn-prediction-n5qoq7vmewtvyez2wczmmx.streamlit.app/)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg?logo=python&logoColor=white)](https://www.python.org/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.52-FF4B4B.svg?logo=streamlit&logoColor=white)](https://streamlit.io/)
 [![Scikit-Learn](https://img.shields.io/badge/scikit--learn-1.7-F7931E.svg?logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
@@ -12,6 +13,8 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
 *An end-to-end Machine Learning ecosystem assigning real-time churn probability scores to retail bank customers, uncovering key flight drivers via SHAP, and offering an interactive Streamlit analytics suite.*
+
+🚀 **[Try the Live App →](https://bank-customer-churn-prediction-n5qoq7vmewtvyez2wczmmx.streamlit.app/)**
 
 [Features](#-key-features) • [Quick Start](#-quick-start) • [Model Benchmarks](#-model-performance-benchmarks) • [Streamlit App](#-streamlit-web-application) • [Architecture](#-project-architecture) • [Research Paper](research_paper.md)
 
@@ -121,7 +124,7 @@ The interactive web dashboard ([`app.py`](app.py)) is organized into 5 core modu
 
 ### 1. Clone Repository & Navigate
 ```bash
-git clone https://github.com/your-username/bank-customer-churn-prediction.git
+git clone https://github.com/Krishnapriya-prasannan/bank-customer-churn-prediction.git
 cd bank-customer-churn-prediction
 ```
 
